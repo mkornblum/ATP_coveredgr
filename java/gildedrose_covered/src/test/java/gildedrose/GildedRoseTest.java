@@ -1,6 +1,8 @@
 package gildedrose;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,16 +33,18 @@ public class GildedRoseTest {
         assertEquals(1, app.items[0].sellIn, "Sellin is not decreased for this legendary item");
     }
 
-    @Test
-    public void GenericItem_SellinDecreasesEachUpdate() {
-        GildedRose app = new GildedRose(createItemArray("generic item", 8, 10));
+    @ParameterizedTest(name = "{0} item SellIn decreases each update")
+    @CsvSource({"generic item", "Aged Brie", BACKSTAGE_PASS})
+    public void NonLegendaryItem_SellInDate_Decreases(String itemName) {
+        GildedRose app = new GildedRose(createItemArray(itemName, 8, 10));
         app.updateQuality();
         assertEquals(7, app.items[0].sellIn, "Item sellin date should decrease by 1 each day");
     }
 
-    @Test
-    public void GenericItem_SellinDateGoesNegative() {
-        GildedRose app = new GildedRose(createItemArray("generic item", 0, 25));
+    @ParameterizedTest(name = "{0} item SellIn will be negative after sellin date reached")
+    @CsvSource({"generic item", "Aged Brie", BACKSTAGE_PASS})
+    public void NonLegendaryItem_SellinDate_CanBeNegative(String itemName) {
+        GildedRose app = new GildedRose(createItemArray(itemName, 0, 25));
         app.updateQuality();
         assertEquals(-1, app.items[0].sellIn, "Sellin date will go negative once sellin date is reached");
     }
@@ -73,12 +77,14 @@ public class GildedRoseTest {
         assertEquals(31, app.items[0].quality, "Aged Brie increases quality with age");
     }
 
-    @Test
-    public void AgedBrie_QualityIsCappedAt50() {
-        GildedRose app = new GildedRose(createItemArray("Aged Brie", 5, 50));
+    @ParameterizedTest(name = "{0} item Quality is Capped at 50")
+    @CsvSource({"Aged Brie", BACKSTAGE_PASS})
+    public void NonLegendaryItem_ThatImprovesWithAge_QualityIsCappedAt50(String itemName) {
+        GildedRose app = new GildedRose(createItemArray(itemName, 5, 50));
         app.updateQuality();
         assertEquals(50, app.items[0].quality, "Quality has an upper limit that is not exceeded");
     }
+
 
     @Test
     public void AgedBrie_QualityIncreases_EvenAfterSellInDate() {
@@ -113,13 +119,6 @@ public class GildedRoseTest {
         GildedRose app = new GildedRose(createItemArray(BACKSTAGE_PASS, 5, 40));
         app.updateQuality();
         assertEquals(43, app.items[0].quality, "Backstage Pass quality increases even more when concert is almost here");
-    }
-
-    @Test
-    public void BackstagePass_QualityIsCappedAt50() {
-        GildedRose app = new GildedRose(createItemArray(BACKSTAGE_PASS, 40, 50));
-        app.updateQuality();
-        assertEquals(50, app.items[0].quality, "Quality has an upper limit that is not exceeded");
     }
 
     @Test
