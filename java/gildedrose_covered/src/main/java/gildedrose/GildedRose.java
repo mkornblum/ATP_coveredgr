@@ -1,7 +1,5 @@
 package gildedrose;
 
-import gildedrose.Item;
-
 class GildedRose {
     Item[] items;
 
