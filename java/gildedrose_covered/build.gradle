@@ -8,6 +8,10 @@ repositories {
 }
 
 dependencies {
+  testCompile(
+    'org.junit.jupiter:junit-jupiter-api:5.3.1',
+    'org.junit.jupiter:junit-jupiter-params:5.3.1'
+  )
   testImplementation(
     'org.junit.jupiter:junit-jupiter-api:5.1.0'
   )
