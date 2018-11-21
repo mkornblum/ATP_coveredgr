@@ -7,12 +7,15 @@ namespace csharp
     public class GildedRoseTest
     {
         private const string BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
-        private const string LEGENDARY_ITEM = "Sulfuras, Hand of Ragnaros";
+
+        private List<Item> createItemList(string itemName, int sellIn, int quality) {
+            return new List<Item> { new Item { Name = itemName, SellIn = sellIn, Quality = quality } };
+        }        
 
         [Test]
         public void LegendaryItem_QualityDoesNotDecrease() {
             // Arrange
-            GildedRose app = new GildedRose(createItemList(LEGENDARY_ITEM, 20, 80));
+            GildedRose app = new GildedRose(createItemList("Sulfuras, Hand of Ragnaros", 20, 80));
     
             // Act
             app.UpdateQuality();
@@ -23,7 +26,7 @@ namespace csharp
     
         [Test]
         public void LegendaryItem_NeverHasToBeSold() {
-            GildedRose app = new GildedRose(createItemList(LEGENDARY_ITEM, 1, 80));
+            GildedRose app = new GildedRose(createItemList("Sulfuras, Hand of Ragnaros", 1, 80));
             app.UpdateQuality();
             Assert.AreEqual(1, app.Items[0].SellIn, "Sellin is not decreased for this legendary item");
         }
@@ -129,8 +132,5 @@ namespace csharp
         //NEW BEHAVIOR
         // conjured items
     
-        private List<Item> createItemList(string itemName, int sellIn, int quality) {
-            return new List<Item> { new Item { Name = itemName, SellIn = sellIn, Quality = quality } };
-        }        
     }
 }
