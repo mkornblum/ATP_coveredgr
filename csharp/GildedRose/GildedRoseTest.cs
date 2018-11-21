@@ -40,9 +40,11 @@ namespace csharp
             Assert.AreEqual(7, sut.Items[0].SellIn, "Item sellin date should decrease by 1 each day");
         }
     
-        [Test]
-        public void GenericItem_SellinDateGoesNegative() {
-            GildedRose sut = new GildedRose(createItemList("generic item", 0, 25));
+        [TestCase("generic item")]
+        [TestCase("Aged Brie")]
+        [TestCase(BACKSTAGE_PASS)]
+        public void NonLegendaryItem_SellInDate_CanBeNegative(string name) {
+            GildedRose sut = new GildedRose(createItemList(name, 0, 25));
             sut.UpdateQuality();
             Assert.AreEqual(-1, sut.Items[0].SellIn, "Sellin date will go negative once sellin date is reached");
         }
