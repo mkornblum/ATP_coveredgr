@@ -77,9 +77,10 @@ namespace csharp
             Assert.AreEqual(31, sut.Items[0].Quality, "Aged Brie increases quality with age");
         }
     
-        [Test]
-        public void AgedBrie_QualityIsCappedAt50() {
-            GildedRose sut = new GildedRose(createItemList("Aged Brie", 5, 50));
+        [TestCase("Aged Brie")]
+        [TestCase(BACKSTAGE_PASS)]
+        public void NonLegendaryItem_ThatImprovesWithAge_QualityIsCappedAt50(string itemName) {
+            GildedRose sut = new GildedRose(createItemList(itemName, 5, 50));
             sut.UpdateQuality();
             Assert.AreEqual(50, sut.Items[0].Quality, "Quality has an upper limit that is not exceeded");
         }
@@ -91,7 +92,6 @@ namespace csharp
             Assert.AreEqual(22, sut.Items[0].Quality, "Aged Brie improves twice as fast after sellin date (BUG?)");
         }
     
-        
         [Test]
         public void AgedBrie_QualityIsCappedAt50_EvenWhenReallyOld() {
             GildedRose sut = new GildedRose(createItemList("Aged Brie", -99, 50));
@@ -118,13 +118,6 @@ namespace csharp
             GildedRose sut = new GildedRose(createItemList(BACKSTAGE_PASS, 5, 40));
             sut.UpdateQuality();
             Assert.AreEqual(43, sut.Items[0].Quality, "Backstage Pass quality increases even more when concert is almost here");
-        }
-    
-        [Test]
-        public void BackstagePass_QualityIsCappedAt50() {
-            GildedRose sut = new GildedRose(createItemList(BACKSTAGE_PASS, 40, 50));
-            sut.UpdateQuality();
-            Assert.AreEqual(50, sut.Items[0].Quality, "Quality has an upper limit that is not exceeded");
         }
     
         [Test]
