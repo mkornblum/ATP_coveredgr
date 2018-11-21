@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GildedRoseTest {
@@ -126,6 +127,20 @@ public class GildedRoseTest {
         GildedRose app = new GildedRose(createItemArray(BACKSTAGE_PASS, 0, 50));
         app.updateQuality();
         assertEquals(0, app.items[0].quality, "Backstage Pass is worthless when concert has passed");
+    }
+
+    @Test
+    public void ShopContainsMultipleItems() {
+        Item[] items = new Item[] { new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+                                    new Item("generic item", 10, 5)};
+        GildedRose sut = new GildedRose(items);
+
+        sut.updateQuality();
+
+        assertAll("Each item in the shop should be updated",
+                () -> assertEquals(0, items[0].sellIn, "Legendary item sellin date is not changed"),
+                () -> assertEquals(9, items[1].sellIn, "generic item sellIn is decreased")
+        );
     }
 
     //TODO: NEW BEHAVIOR
