@@ -127,6 +127,21 @@ namespace csharp
             Assert.AreEqual(0, sut.Items[0].Quality, "Backstage Pass is worthless when concert has passed");
         }
 
+        [Test]
+        public void ShopContainsMultipleItems() {
+            List<Item> items = new List<Item> {
+                new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80},
+                new Item {Name = "generic item", SellIn = 10, Quality = 5}
+            };
+            GildedRose sut = new GildedRose(items);
+            
+            sut.UpdateQuality();
+            
+            Assert.Multiple(() => {
+                Assert.AreEqual(0, items[0].SellIn, "Legendary item SellIn date is not changed");
+                Assert.AreEqual(9, items[1].SellIn, "generic item SellIn is decreased");
+            });
+        }
         //NEW BEHAVIOR
         // conjured items
     
