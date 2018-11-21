@@ -31,9 +31,11 @@ namespace csharp
             Assert.AreEqual(1, sut.Items[0].SellIn, "Sellin is not decreased for this legendary item");
         }
 
-        [Test]
-        public void GenericItem_SellinDecreasesEachUpdate() {
-            GildedRose sut = new GildedRose(createItemList("generic item", 8, 10));
+        [TestCase("generic item")]
+        [TestCase("Aged Brie")]
+        [TestCase(BACKSTAGE_PASS)]
+        public void NonLegendaryItem_SellInDate_Decreases(string name) {
+            GildedRose sut = new GildedRose(createItemList(name, 8, 10));
             sut.UpdateQuality();
             Assert.AreEqual(7, sut.Items[0].SellIn, "Item sellin date should decrease by 1 each day");
         }
