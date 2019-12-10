@@ -34,6 +34,14 @@ public class GildedRoseTest {
         assertEquals(1, sut.items[0].sellIn, "Sellin is not decreased for this legendary item");
     }
 
+    @Test
+    public void LegendaryItem_NegativeSellIn_QualityUnchanged() {
+        // Covers the code path where sellin is negative, quality is positive, and *is* Legendary
+        GildedRose sut = new GildedRose(createItemArray("Sulfuras, Hand of Ragnaros", -1, 80));
+        sut.updateQuality();
+        assertEquals(-1, sut.items[0].sellIn, "Sellin is not decreased for this legendary item");
+    }
+
     @ParameterizedTest(name = "{0} item SellIn decreases each update")
     @CsvSource({"generic item", "Aged Brie", BACKSTAGE_PASS})
     public void NonLegendaryItem_SellInDate_Decreases(String itemName) {
@@ -127,6 +135,13 @@ public class GildedRoseTest {
         GildedRose sut = new GildedRose(createItemArray(BACKSTAGE_PASS, 0, 50));
         sut.updateQuality();
         assertEquals(0, sut.items[0].quality, "Backstage Pass is worthless when concert has passed");
+    }
+
+    @Test
+    public void BackstagePass_QualityIsCappedAtMaximum() {
+        GildedRose sut = new GildedRose(createItemArray(BACKSTAGE_PASS, 5, 49));
+        sut.updateQuality();
+        assertEquals(50, sut.items[0].quality, "Backstage pass, very close to sellin date, is still capped at maximum quality");
     }
 
     @Test
