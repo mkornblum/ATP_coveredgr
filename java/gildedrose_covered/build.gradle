@@ -1,7 +1,8 @@
-
-apply plugin: "java"
-apply plugin: "eclipse"
-apply plugin: "idea"
+plugins {
+  id 'java'
+  id 'idea'
+  id 'eclipse'
+}
 
 repositories {
   mavenCentral()
