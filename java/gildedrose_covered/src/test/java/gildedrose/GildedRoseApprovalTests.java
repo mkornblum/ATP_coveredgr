@@ -10,10 +10,18 @@ public class GildedRoseApprovalTests {
 
     @Test
     public void test_UpdateQuality_SingleItem_AtSellin_NoQuality() {
+        // Arrange
         Item[] items = new Item[]{new Item("normal", 0, 0)};
         GildedRose sut = new GildedRose(items);
+
+        // Act
         sut.updateQuality();
-        assertEquals("normal, -1, 0", sut.items[0].toString());
+
+        // Assert
+        // The Verify call creates a file named GildedRoseApprovalTests.OneItemApproval.received.txt
+        // and compares it against the Approved result file, GildedRoseApprovalTests.OneItemApproval.approved.txt
+        // If the contents of the two files match, the test passes
+        // otherwise the test fails and the diff of the two files is shown
         Approvals.verify(sut.items[0].toString());
     }
 
