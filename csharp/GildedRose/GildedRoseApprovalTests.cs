@@ -35,9 +35,9 @@ namespace csharp {
         public void AllItemCombinations() {
             CombinationApprovals.VerifyAllCombinations(
                 doUpdateQuality,
-                new string[] {"foo"},
-                new int[] { 0 },
-                new int[] { 0 }
+                new string[] {"foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"},
+                new int[] {-1, 0, 5, 10, 11},       // SellIn
+                new int[] { 0, 1, 49, 50 }          // Quality
                 );
         }
         
