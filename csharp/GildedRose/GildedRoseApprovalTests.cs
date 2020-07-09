@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using ApprovalTests;
+using ApprovalTests.Combinations;
 using ApprovalTests.Reporters;
 using NUnit.Framework;
 
 namespace csharp {
+    
     [UseReporter(typeof(DiffReporter))]
     [TestFixture]
     public class GildedRoseApprovalTests {
@@ -26,6 +29,23 @@ namespace csharp {
             // If the contents of the two files match, the test passes
             // otherwise the test fails and the diff of the two files is shown
             Approvals.Verify(sut.Items[0].ToString());
+        }
+
+        [Test]
+        public void AllItemCombinations() {
+            CombinationApprovals.VerifyAllCombinations(
+                doUpdateQuality,
+                new string[] {"foo"},
+                new int[] { 0 },
+                new int[] { 0 }
+                );
+        }
+        
+        private string doUpdateQuality(string name, int sellIn, int quality) {
+            var items = createItemList(name, sellIn, quality);
+            GildedRose sut = new GildedRose(items);
+            sut.UpdateQuality();
+            return sut.Items[0].ToString();
         }
     }
 }
