@@ -34,14 +34,14 @@ namespace csharp {
         [Test]
         public void AllItemCombinations() {
             CombinationApprovals.VerifyAllCombinations(
-                doUpdateQuality,
+                DoUpdateQuality,
                 new string[] {"foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"},
                 new int[] {-1, 0, 5, 10, 11},       // SellIn
                 new int[] { 0, 1, 49, 50 }          // Quality
                 );
         }
         
-        private string doUpdateQuality(string name, int sellIn, int quality) {
+        private string DoUpdateQuality(string name, int sellIn, int quality) {
             var items = createItemList(name, sellIn, quality);
             GildedRose sut = new GildedRose(items);
             sut.UpdateQuality();
