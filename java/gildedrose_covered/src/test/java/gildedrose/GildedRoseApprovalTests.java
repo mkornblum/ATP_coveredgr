@@ -2,10 +2,14 @@ package gildedrose;
 
 import org.approvaltests.Approvals;
 import org.approvaltests.combinations.CombinationApprovals;
+import org.approvaltests.reporters.UseReporter;
+import org.approvaltests.reporters.macosx.DiffMergeReporter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//Uncomment the following line to use DiffMerge when Received/Approved differ
+//@UseReporter(DiffMergeReporter.class)
 public class GildedRoseApprovalTests {
 
     @Test
@@ -31,7 +35,7 @@ public class GildedRoseApprovalTests {
                 this::doUpdateQuality,
                 new String[] {"foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"},
                 new Integer[] {-1, 0, 5, 10, 11},    // SellIn
-                new Integer[] { 0, 1, 49, 50 }       // Quality
+                new Integer[] { 0, 1, 49, 50, 80 }       // Quality
         );
     }
 
