@@ -1,12 +1,12 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace csharp
+namespace GildedRose
 {
     [TestFixture]
     public class GildedRoseTest
     {
-        private const string BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
+        private const string BackstagePass = "Backstage passes to a TAFKAL80ETC concert";
 
         private List<Item> createItemList(string itemName, int sellIn, int quality) {
             return new List<Item> { new Item { Name = itemName, SellIn = sellIn, Quality = quality } };
@@ -33,7 +33,7 @@ namespace csharp
 
         [TestCase("generic item")]
         [TestCase("Aged Brie")]
-        [TestCase(BACKSTAGE_PASS)]
+        [TestCase(BackstagePass)]
         public void NonLegendaryItem_SellInDate_Decreases(string name) {
             GildedRose sut = new GildedRose(createItemList(name, 8, 10));
             sut.UpdateQuality();
@@ -42,7 +42,7 @@ namespace csharp
     
         [TestCase("generic item")]
         [TestCase("Aged Brie")]
-        [TestCase(BACKSTAGE_PASS)]
+        [TestCase(BackstagePass)]
         public void NonLegendaryItem_SellInDate_CanBeNegative(string name) {
             GildedRose sut = new GildedRose(createItemList(name, 0, 25));
             sut.UpdateQuality();
@@ -78,7 +78,7 @@ namespace csharp
         }
     
         [TestCase("Aged Brie")]
-        [TestCase(BACKSTAGE_PASS)]
+        [TestCase(BackstagePass)]
         public void NonLegendaryItem_ThatImprovesWithAge_QualityIsCappedAt50(string itemName) {
             GildedRose sut = new GildedRose(createItemList(itemName, 5, 50));
             sut.UpdateQuality();
@@ -101,28 +101,28 @@ namespace csharp
     
         [Test]
         public void BackstagePass_QualityIncreasesEachDay() {
-            GildedRose sut = new GildedRose(createItemList(BACKSTAGE_PASS, 30, 23));
+            GildedRose sut = new GildedRose(createItemList(BackstagePass, 30, 23));
             sut.UpdateQuality();
             Assert.AreEqual(24, sut.Items[0].Quality, "Backstage Pass increases quality with age");
         }
     
         [Test]
         public void BackstagePass_QualityIncreasesMoreAsConcertNears() {
-            GildedRose sut = new GildedRose(createItemList(BACKSTAGE_PASS, 10, 40));
+            GildedRose sut = new GildedRose(createItemList(BackstagePass, 10, 40));
             sut.UpdateQuality();
             Assert.AreEqual(42, sut.Items[0].Quality, "Backstage Pass quality increases more when concert is near");
         }
     
         [Test]
         public void BackstagePass_QualityIncreasesMuchMoreWhenConcertIsClose() {
-            GildedRose sut = new GildedRose(createItemList(BACKSTAGE_PASS, 5, 40));
+            GildedRose sut = new GildedRose(createItemList(BackstagePass, 5, 40));
             sut.UpdateQuality();
             Assert.AreEqual(43, sut.Items[0].Quality, "Backstage Pass quality increases even more when concert is almost here");
         }
     
         [Test]
         public void BackStagePass_QualityDropsToZeroWhenConcertPasses() {
-            GildedRose sut = new GildedRose(createItemList(BACKSTAGE_PASS, 0, 50));
+            GildedRose sut = new GildedRose(createItemList(BackstagePass, 0, 50));
             sut.UpdateQuality();
             Assert.AreEqual(0, sut.Items[0].Quality, "Backstage Pass is worthless when concert has passed");
         }
@@ -142,6 +142,7 @@ namespace csharp
                 Assert.AreEqual(9, items[1].SellIn, "generic item SellIn is decreased");
             });
         }
+        
         //NEW BEHAVIOR
         // conjured items
     

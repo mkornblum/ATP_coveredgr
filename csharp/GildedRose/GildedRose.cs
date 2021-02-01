@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 
-namespace csharp
+namespace GildedRose
 {
     public class GildedRose
     {
-        public IList<Item> Items;
-        public GildedRose(IList<Item> Items)
+        protected internal readonly IList<Item> Items;
+        public GildedRose(IList<Item> items)
         {
-            this.Items = Items;
+            this.Items = items;
         }
 
         public void UpdateQuality()

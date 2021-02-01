@@ -5,7 +5,7 @@ using ApprovalTests.Combinations;
 using ApprovalTests.Reporters;
 using NUnit.Framework;
 
-namespace csharp {
+namespace GildedRose {
     
     [UseReporter(typeof(DiffReporter))]
     [TestFixture]
