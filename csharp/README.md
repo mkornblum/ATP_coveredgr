@@ -1,6 +1,5 @@
 # GildedRoseJava
 
-======================================
 Gilded Rose Requirements Specification
 ======================================
 
