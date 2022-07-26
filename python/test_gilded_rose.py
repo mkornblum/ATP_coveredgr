@@ -24,6 +24,14 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(1, items[0].sell_in)
 
+    def test_legendary_item_quality_does_not_change_past_sell_by_date(self):
+        items = [Item("Sulfuras, Hand of Ragnaros", -1, 80)]
+        sut = GildedRose(items)
+
+        sut.update_quality()
+
+        self.assertEqual(80, items[0].quality)
+
 
 
 
