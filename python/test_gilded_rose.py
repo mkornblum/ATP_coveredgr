@@ -14,7 +14,7 @@ class GildedRoseTest(unittest.TestCase):
         sut.update_quality()
 
         # Assert
-        self.assertEquals(80, items[0].quality)
+        self.assertEqual(80, items[0].quality)
 
     def test_legendary_item_never_has_to_be_sold(self):
         items = [Item("Sulfuras, Hand of Ragnaros", 1, 80)]
@@ -22,7 +22,7 @@ class GildedRoseTest(unittest.TestCase):
 
         sut.update_quality()
 
-        self.assertEquals(1, items[0].sell_in)
+        self.assertEqual(1, items[0].sell_in)
 
 
 
