@@ -40,6 +40,12 @@ legendary item and as such its Quality is 80 and it never alters.
 To run the tests
 
 ```sh
+pytest
+```
+
+OR
+
+```sh
 python3 -m unittest test_gilded_rose.py
 ```
 
