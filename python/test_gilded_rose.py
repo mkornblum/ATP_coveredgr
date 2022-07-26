@@ -138,6 +138,14 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(22, items[0].quality)
 
+    def test_brie_quality_has_upper_limit_even_when_really_old(self):
+        items = [Item("Aged Brie", -99, 50)]
+        sut = GildedRose(items)
+
+        sut.update_quality()
+
+        self.assertEqual(50, items[0].quality)
+
 
 
 
