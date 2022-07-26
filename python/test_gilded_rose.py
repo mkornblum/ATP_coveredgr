@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+import pytest
 
 from gilded_rose import Item, GildedRose
 
@@ -31,6 +32,14 @@ class GildedRoseTest(unittest.TestCase):
         sut.update_quality()
 
         self.assertEqual(80, items[0].quality)
+
+    def test_sell_in_decreases(self):
+        items = [Item("generic item", 8, 10)]
+        sut = GildedRose(items)
+
+        sut.update_quality()
+
+        self.assertEqual(7, items[0].sell_in)
 
 
 
