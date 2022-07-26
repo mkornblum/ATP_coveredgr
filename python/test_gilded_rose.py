@@ -33,7 +33,7 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(80, items[0].quality)
 
     # TODO - convert next 3 tests to 1 parametrized test
-    def test_sell_in_decreases_generic(self):
+    def test_sell_in_decreases_generic_item(self):
         items = [Item("generic item", 8, 10)]
         sut = GildedRose(items)
 
@@ -49,7 +49,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(7, items[0].sell_in)
 
-    def test_sell_in_decreases_pass(self):
+    def test_sell_in_decreases_backstage_pass(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 8, 10)]
         sut = GildedRose(items)
 
@@ -58,7 +58,7 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(7, items[0].sell_in)
 
     # TODO - convert next 3 tests to 1 parametrized test
-    def test_sell_in_can_be_negative_generic(self):
+    def test_sell_in_can_be_negative_generic_item(self):
         items = [Item("generic item", 0, 25)]
         sut = GildedRose(items)
 
@@ -74,7 +74,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(-1, items[0].sell_in)
 
-    def test_sell_in_can_be_negative_pass(self):
+    def test_sell_in_can_be_negative_backstage_pass(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 0, 25)]
         sut = GildedRose(items)
 
@@ -122,7 +122,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(50, items[0].quality)
 
-    def test_pass_quality_has_an_upper_limit(self):
+    def test_backstage_pass_quality_has_an_upper_limit(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 15, 50)]
         sut = GildedRose(items)
 
@@ -146,8 +146,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(50, items[0].quality)
 
-# TODO - Finish with 5 Backstage Pass tests
-    def test_pass_quality_increases_each_day_when_concert_is_far_off_in_future(self):
+    def test_backstage_pass_quality_increases_each_day_when_concert_date_is_far_off_in_future(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 30, 23)]
         sut = GildedRose(items)
 
@@ -155,7 +154,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(24, items[0].quality)
 
-    def test_pass_quality_increases_more_as_concert_gets_closer(self):
+    def test_backstage_pass_quality_increases_more_as_concert_date_gets_closer(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 10, 40)]
         sut = GildedRose(items)
 
@@ -163,7 +162,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(42, items[0].quality)
 
-    def test_pass_quality_increases_much_more_when_concert_date_is_close(self):
+    def test_backstage_pass_quality_increases_much_more_when_concert_date_is_close(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 40)]
         sut = GildedRose(items)
 
@@ -171,7 +170,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(43, items[0].quality)
 
-    def test_pass_quality_drops_to_zero_when_concert_has_passed(self):
+    def test_backstage_pass_quality_drops_to_zero_when_concert_has_passed(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 0, 40)]
         sut = GildedRose(items)
 
@@ -179,7 +178,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(0, items[0].quality)
 
-    def test_pass_quality_respects_maximum_value_even_when_concert_is_near(self):
+    def test_backstage_ pass_quality_respects_maximum_value_even_when_concert_is_near(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 49)]
         sut = GildedRose(items)
 
@@ -187,16 +186,15 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(50, items[0].quality)
 
+    def test_shop_contains_multiple_items_and_all_areupdated(self):
+        items = [Item("Sulfuras, Hand of Ragnaros", 0, 80),
+                 Item("generic item", 10, 5)]
+        sut = GildedRose(items)
 
+        sut.update_quality()
 
-
-
-
-
-# TODO - add 1 test for multiple items
-
-
-
+        self.assertEqual(0, items[0].sell_in)
+        self.assertEqual(9, items[1].sell_in)
 
 if __name__ == '__main__':
     unittest.main()
