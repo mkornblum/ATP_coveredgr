@@ -123,7 +123,7 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(50, items[0].quality)
 
     def test_pass_quality_has_an_upper_limit(self):
-        items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 50)]
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 15, 50)]
         sut = GildedRose(items)
 
         sut.update_quality()
@@ -146,7 +146,54 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(50, items[0].quality)
 
+# TODO - Finish with 5 Backstage Pass tests
+    def test_pass_quality_increases_each_day_when_concert_is_far_off_in_future(self):
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 30, 23)]
+        sut = GildedRose(items)
 
+        sut.update_quality()
+
+        self.assertEqual(24, items[0].quality)
+
+    def test_pass_quality_increases_more_as_concert_gets_closer(self):
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 10, 40)]
+        sut = GildedRose(items)
+
+        sut.update_quality()
+
+        self.assertEqual(42, items[0].quality)
+
+    def test_pass_quality_increases_much_more_when_concert_date_is_close(self):
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 40)]
+        sut = GildedRose(items)
+
+        sut.update_quality()
+
+        self.assertEqual(43, items[0].quality)
+
+    def test_pass_quality_drops_to_zero_when_concert_has_passed(self):
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 0, 40)]
+        sut = GildedRose(items)
+
+        sut.update_quality()
+
+        self.assertEqual(0, items[0].quality)
+
+    def test_pass_quality_respects_maximum_value_even_when_concert_is_near(self):
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 49)]
+        sut = GildedRose(items)
+
+        sut.update_quality()
+
+        self.assertEqual(50, items[0].quality)
+
+
+
+
+
+
+
+# TODO - add 1 test for multiple items
 
 
 
