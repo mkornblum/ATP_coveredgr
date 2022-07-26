@@ -178,7 +178,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(0, items[0].quality)
 
-    def test_backstage_ pass_quality_respects_maximum_value_even_when_concert_is_near(self):
+    def test_backstage_pass_quality_respects_maximum_value_even_when_concert_is_near(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 49)]
         sut = GildedRose(items)
 
