@@ -186,7 +186,7 @@ class GildedRoseTest(unittest.TestCase):
 
         self.assertEqual(50, items[0].quality)
 
-    def test_shop_contains_multiple_items_and_all_areupdated(self):
+    def test_shop_contains_multiple_items_and_all_are_updated(self):
         items = [Item("Sulfuras, Hand of Ragnaros", 0, 80),
                  Item("generic item", 10, 5)]
         sut = GildedRose(items)
