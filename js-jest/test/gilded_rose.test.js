@@ -151,7 +151,7 @@ describe("Gilded Rose", function () {
         expect(items[0].quality).toBe(50);
     });
 
-    it("Shap can contain multiple items and each is updated", () => {
+    it("Sh0p can contain multiple items and each is updated", () => {
         const sut = new Shop([new Item("Sulfuras, Hand of Ragnaros", 0, 80),
             new Item("generic item", 10, 5)]);
 
