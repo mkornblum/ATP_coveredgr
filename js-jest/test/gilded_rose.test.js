@@ -1,4 +1,4 @@
-const {Shop, Item} = require("../src/gilded_rose");
+const { Shop, Item } = require("../src/gilded_rose");
 
 describe("Gilded Rose", function () {
     it("Legendary Item quality does not decrease", () => {
@@ -29,7 +29,7 @@ describe("Gilded Rose", function () {
     });
 
 
-    it("Generic item SellIn decreases each update",  () => {
+    it("Generic item SellIn decreases each update", () => {
         const sut = new Shop([new Item("generic item", 8, 8)]);
 
         const items = sut.updateQuality();
@@ -70,14 +70,14 @@ describe("Gilded Rose", function () {
         expect(items[0].quality).toBe(0);
     });
 
-    it("Aged Brie item SellIn decreases each update", ()=> {
+    it("Aged Brie item SellIn decreases each update", () => {
         const sut = new Shop([new Item("Aged Brie", 5, 5)]);
 
         const items = sut.updateQuality();
 
         expect(items[0].sellIn).toBe(4);
     });
-    
+
     it("Aged Brie SellIn will be negative after sellIn date reached", () => {
         const sut = new Shop([new Item("Aged Brie", 0, 25)]);
 
@@ -110,7 +110,7 @@ describe("Gilded Rose", function () {
 
         expect(items[0].quality).toBe(50);
     });
-    
+
     it("Aged Brie quality capped at 50 even when really old", () => {
         const sut = new Shop([new Item("Aged Brie", -10, 50)]);
 
@@ -121,14 +121,14 @@ describe("Gilded Rose", function () {
 
 
     // TODO - there are several items whose Sellin decreases each update.. can we make it dat driven? 
-    it("Backstage passes SellIn decreases each update",  () => {
+    it("Backstage passes SellIn decreases each update", () => {
         const sut = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10)]);
 
         const items = sut.updateQuality();
 
         expect(items[0].sellIn).toBe(9);
     });
-    
+
     it("Backstage passes SellIn will be negative after sellIn date reached", () => {
         const sut = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 0, 25)]);
 
@@ -188,7 +188,7 @@ describe("Gilded Rose", function () {
 
     it("Shop can contain multiple items and each is updated", () => {
         const sut = new Shop([new Item("Sulfuras, Hand of Ragnaros", 0, 80),
-            new Item("generic item", 10, 5)]);
+        new Item("generic item", 10, 5)]);
 
         const items = sut.updateQuality();
 
