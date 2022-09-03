@@ -28,24 +28,50 @@ describe("Gilded Rose", function () {
         expect(items[0].quality).toBe(80);
     });
 
-    it.each([
-        ["generic item"],
-        ["Aged Brie"],
-        ["Backstage passes to a TAFKAL80ETC concert"],
-    ])('%p item SellIn decreases each update', (itemName) => {
-        const sut = new Shop([new Item(itemName, 8, 10)]);
+    // TODO - can the tests for Backstage passes, Aged Brie, and generic item SellIn decrease be data driven? 
+    it("Backstage passes SellIn decreases each update",  () => {
+        const sut = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10)]);
+
+        const items = sut.updateQuality();
+
+        expect(items[0].sellIn).toBe(9);
+    });
+
+    it("generic item SellIn decreases each update",  () => {
+        const sut = new Shop([new Item("generic item", 8, 8)]);
 
         const items = sut.updateQuality();
 
         expect(items[0].sellIn).toBe(7);
     });
 
-    it.each([
-        ["generic item"],
-        ["Aged Brie"],
-        ["Backstage passes to a TAFKAL80ETC concert"],
-    ])('%p item  SellIn will be negative after sellIn date reached', (itemName) => {
-        const sut = new Shop([new Item(itemName, 0, 25)]);
+    it("Aged Brie item SellIn decreases each update", ()=> {
+        const sut = new Shop([new Item("Aged Brie", 5, 5)]);
+
+        const items = sut.updateQuality();
+
+        expect(items[0].sellIn).toBe(4);
+    });
+
+    // TODO - can the tests for `negative after sellIn date reached` be parameterized? 
+    it("generic item SellIn will be negative after sellIn date reached", () => {
+        const sut = new Shop([new Item("generic item", 0, 10)]);
+
+        const items = sut.updateQuality();
+
+        expect(items[0].sellIn).toBe(-1);
+    });
+
+    it("Aged Brie SellIn will be negative after sellIn date reached", () => {
+        const sut = new Shop([new Item("Aged Brie", 0, 25)]);
+
+        const items = sut.updateQuality();
+
+        expect(items[0].sellIn).toBe(-1);
+    });
+
+    it("Backstage passes SellIn will be negative after sellIn date reached", () => {
+        const sut = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 0, 25)]);
 
         const items = sut.updateQuality();
 
@@ -158,6 +184,7 @@ describe("Gilded Rose", function () {
         const items = sut.updateQuality();
 
         // jest doesn't have a mechanism to ensure all expectations are verified
+        // Is there any other way to do this? 
         expect(items[0].sellIn).toBe(0);
         expect(items[1].sellIn).toBe(9);
     });
