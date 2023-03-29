@@ -40,6 +40,7 @@ describe GildedRose do
     end
 
     # TODO - convert next 3 tests to 1 parametrized test
+    # there are several items whose Sellin decreases each update.. can we make it data driven?
     it "sell in can be negative generic item" do
       items = [Item.new("generic item", 0, 25)]
       GildedRose.new(items).update_quality
@@ -76,6 +77,7 @@ describe GildedRose do
       expect(0).to eq(items[0].quality)
     end
 
+    # TODO: can all items which improve with and have cap be tested together?
     it "brie quality increase before sell by" do
       items = [Item.new("Aged Brie", 5, 30)]
       GildedRose.new(items).update_quality
