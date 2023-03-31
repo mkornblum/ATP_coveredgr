@@ -6,25 +6,57 @@ class Item {
   }
 }
 
-class GenericItem extends Item {
-  constructor(name, sellIn, quality) {
+class UpdateableItem extends Item {
+  constructor(name, sellIn, quality, updateCallback) {
     super(name, sellIn, quality);
+    this.updateCallback = updateCallback;
   }
 
   updateQuality() {
-    this.sellIn = this.sellIn - 1;
-    if (this.sellIn > 0) {
-      this.quality = this.quality - 1;
-    } else {
-      this.quality = this.quality - 2;
-    }
+    return this.updateCallback(this)
   }
+}
+
+const itemUpdateMethods = {
+  'Sulfuras, Hand of Ragnaros': () => {},
+  'Aged Brie': (item) => {
+    item.sellIn = item.sellIn - 1;
+
+    if (item.quality < 50) {
+      item.quality = item.quality + (item.sellIn < 0 ? 2 : 1)
+    }
+    return item
+  },
+  'Backstage passes to a TAFKAL80ETC concert': (item) => {
+    item.sellIn = item.sellIn - 1;
+    if (item.sellIn < 0) {
+      item.quality = 0;
+    } else if (item.sellIn < 5) {
+      item.quality = item.quality + 3;
+    } else if (item.sellIn < 10) {
+      item.quality = item.quality + 2;
+    } else if (item.sellIn > 0) {
+      item.quality = item.quality + 1;
+    }
+    item.quality = Math.min(50, item.quality)
+    return item
+  }
+}
+
+const genericUpdateMethod = (item) => {
+  item.sellIn = item.sellIn - 1;
+
+  if (item.quality > 0) {
+    item.quality = item.quality - ( item.sellIn > 0 ? 1 : 2);
+  }
+  return item
 }
 
 class Shop {
   constructor(items=[]){
     this.items = items.map((item) => {
-      return new GenericItem(item.name, item.sellIn, item.quality);
+      let method = itemUpdateMethods[item.name] || genericUpdateMethod
+      return new UpdateableItem(item.name, item.sellIn, item.quality, method);
     })
   }
 
